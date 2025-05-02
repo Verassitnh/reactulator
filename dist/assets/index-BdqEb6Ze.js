@@ -116,8 +116,8 @@ function requireReact_production() {
     enqueueSetState: function() {
     }
   }, assign = Object.assign, emptyObject = {};
-  function Component(props, context, updater) {
-    this.props = props;
+  function Component(props2, context, updater) {
+    this.props = props2;
     this.context = context;
     this.refs = emptyObject;
     this.updater = updater || ReactNoopUpdateQueue;
@@ -136,8 +136,8 @@ function requireReact_production() {
   function ComponentDummy() {
   }
   ComponentDummy.prototype = Component.prototype;
-  function PureComponent(props, context, updater) {
-    this.props = props;
+  function PureComponent(props2, context, updater) {
+    this.props = props2;
     this.context = context;
     this.refs = emptyObject;
     this.updater = updater || ReactNoopUpdateQueue;
@@ -147,14 +147,14 @@ function requireReact_production() {
   assign(pureComponentPrototype, Component.prototype);
   pureComponentPrototype.isPureReactComponent = true;
   var isArrayImpl = Array.isArray, ReactSharedInternals = { H: null, A: null, T: null, S: null, V: null }, hasOwnProperty = Object.prototype.hasOwnProperty;
-  function ReactElement(type, key, self, source, owner, props) {
-    self = props.ref;
+  function ReactElement(type, key, self, source, owner, props2) {
+    self = props2.ref;
     return {
       $$typeof: REACT_ELEMENT_TYPE,
       type,
       key,
       ref: void 0 !== self ? self : null,
-      props
+      props: props2
     };
   }
   function cloneAndReplaceKey(oldElement, newKey) {
@@ -377,18 +377,18 @@ function requireReact_production() {
       throw Error(
         "The argument must be a React element, but you passed " + element + "."
       );
-    var props = assign({}, element.props), key = element.key, owner = void 0;
+    var props2 = assign({}, element.props), key = element.key, owner = void 0;
     if (null != config)
       for (propName in void 0 !== config.ref && (owner = void 0), void 0 !== config.key && (key = "" + config.key), config)
-        !hasOwnProperty.call(config, propName) || "key" === propName || "__self" === propName || "__source" === propName || "ref" === propName && void 0 === config.ref || (props[propName] = config[propName]);
+        !hasOwnProperty.call(config, propName) || "key" === propName || "__self" === propName || "__source" === propName || "ref" === propName && void 0 === config.ref || (props2[propName] = config[propName]);
     var propName = arguments.length - 2;
-    if (1 === propName) props.children = children;
+    if (1 === propName) props2.children = children;
     else if (1 < propName) {
       for (var childArray = Array(propName), i = 0; i < propName; i++)
         childArray[i] = arguments[i + 2];
-      props.children = childArray;
+      props2.children = childArray;
     }
-    return ReactElement(element.type, key, void 0, void 0, owner, props);
+    return ReactElement(element.type, key, void 0, void 0, owner, props2);
   };
   react_production.createContext = function(defaultValue) {
     defaultValue = {
@@ -407,21 +407,21 @@ function requireReact_production() {
     return defaultValue;
   };
   react_production.createElement = function(type, config, children) {
-    var propName, props = {}, key = null;
+    var propName, props2 = {}, key = null;
     if (null != config)
       for (propName in void 0 !== config.key && (key = "" + config.key), config)
-        hasOwnProperty.call(config, propName) && "key" !== propName && "__self" !== propName && "__source" !== propName && (props[propName] = config[propName]);
+        hasOwnProperty.call(config, propName) && "key" !== propName && "__self" !== propName && "__source" !== propName && (props2[propName] = config[propName]);
     var childrenLength = arguments.length - 2;
-    if (1 === childrenLength) props.children = children;
+    if (1 === childrenLength) props2.children = children;
     else if (1 < childrenLength) {
       for (var childArray = Array(childrenLength), i = 0; i < childrenLength; i++)
         childArray[i] = arguments[i + 2];
-      props.children = childArray;
+      props2.children = childArray;
     }
     if (type && type.defaultProps)
       for (propName in childrenLength = type.defaultProps, childrenLength)
-        void 0 === props[propName] && (props[propName] = childrenLength[propName]);
-    return ReactElement(type, key, void 0, void 0, null, props);
+        void 0 === props2[propName] && (props2[propName] = childrenLength[propName]);
+    return ReactElement(type, key, void 0, void 0, null, props2);
   };
   react_production.createRef = function() {
     return { current: null };
@@ -2033,29 +2033,29 @@ function requireReactDomClient_production() {
   function restoreStateOfTarget(target) {
     var internalInstance = getInstanceFromNode(target);
     if (internalInstance && (target = internalInstance.stateNode)) {
-      var props = target[internalPropsKey] || null;
+      var props2 = target[internalPropsKey] || null;
       a: switch (target = internalInstance.stateNode, internalInstance.type) {
         case "input":
           updateInput(
             target,
-            props.value,
-            props.defaultValue,
-            props.defaultValue,
-            props.checked,
-            props.defaultChecked,
-            props.type,
-            props.name
+            props2.value,
+            props2.defaultValue,
+            props2.defaultValue,
+            props2.checked,
+            props2.defaultChecked,
+            props2.type,
+            props2.name
           );
-          internalInstance = props.name;
-          if ("radio" === props.type && null != internalInstance) {
-            for (props = target; props.parentNode; ) props = props.parentNode;
-            props = props.querySelectorAll(
+          internalInstance = props2.name;
+          if ("radio" === props2.type && null != internalInstance) {
+            for (props2 = target; props2.parentNode; ) props2 = props2.parentNode;
+            props2 = props2.querySelectorAll(
               'input[name="' + escapeSelectorAttributeValueInsideDoubleQuotes(
                 "" + internalInstance
               ) + '"][type="radio"]'
             );
-            for (internalInstance = 0; internalInstance < props.length; internalInstance++) {
-              var otherNode = props[internalInstance];
+            for (internalInstance = 0; internalInstance < props2.length; internalInstance++) {
+              var otherNode = props2[internalInstance];
               if (otherNode !== target && otherNode.form === target.form) {
                 var otherProps = otherNode[internalPropsKey] || null;
                 if (!otherProps) throw Error(formatProdErrorMessage(90));
@@ -2071,15 +2071,15 @@ function requireReactDomClient_production() {
                 );
               }
             }
-            for (internalInstance = 0; internalInstance < props.length; internalInstance++)
-              otherNode = props[internalInstance], otherNode.form === target.form && updateValueIfChanged(otherNode);
+            for (internalInstance = 0; internalInstance < props2.length; internalInstance++)
+              otherNode = props2[internalInstance], otherNode.form === target.form && updateValueIfChanged(otherNode);
           }
           break a;
         case "textarea":
-          updateTextarea(target, props.value, props.defaultValue);
+          updateTextarea(target, props2.value, props2.defaultValue);
           break a;
         case "select":
-          internalInstance = props.value, null != internalInstance && updateOptions(target, !!props.multiple, internalInstance, false);
+          internalInstance = props2.value, null != internalInstance && updateOptions(target, !!props2.multiple, internalInstance, false);
       }
     }
   }
@@ -2100,9 +2100,9 @@ function requireReactDomClient_production() {
   function getListener(inst, registrationName) {
     var stateNode = inst.stateNode;
     if (null === stateNode) return null;
-    var props = stateNode[internalPropsKey] || null;
-    if (null === props) return null;
-    stateNode = props[registrationName];
+    var props2 = stateNode[internalPropsKey] || null;
+    if (null === props2) return null;
+    stateNode = props2[registrationName];
     a: switch (registrationName) {
       case "onClick":
       case "onClickCapture":
@@ -2115,8 +2115,8 @@ function requireReactDomClient_production() {
       case "onMouseUp":
       case "onMouseUpCapture":
       case "onMouseEnter":
-        (props = !props.disabled) || (inst = inst.type, props = !("button" === inst || "input" === inst || "select" === inst || "textarea" === inst));
-        inst = !props;
+        (props2 = !props2.disabled) || (inst = inst.type, props2 = !("button" === inst || "input" === inst || "select" === inst || "textarea" === inst));
+        inst = !props2;
         break a;
       default:
         inst = false;
@@ -2869,9 +2869,9 @@ function requireReactDomClient_production() {
     throw HydrationMismatchException;
   }
   function prepareToHydrateHostInstance(fiber) {
-    var instance = fiber.stateNode, type = fiber.type, props = fiber.memoizedProps;
+    var instance = fiber.stateNode, type = fiber.type, props2 = fiber.memoizedProps;
     instance[internalInstanceKey] = fiber;
-    instance[internalPropsKey] = props;
+    instance[internalPropsKey] = props2;
     switch (type) {
       case "dialog":
         listenToNonDelegatedEvent("cancel", instance);
@@ -2903,12 +2903,12 @@ function requireReactDomClient_production() {
         listenToNonDelegatedEvent("invalid", instance);
         initInput(
           instance,
-          props.value,
-          props.defaultValue,
-          props.checked,
-          props.defaultChecked,
-          props.type,
-          props.name,
+          props2.value,
+          props2.defaultValue,
+          props2.checked,
+          props2.defaultChecked,
+          props2.type,
+          props2.name,
           true
         );
         track(instance);
@@ -2917,10 +2917,10 @@ function requireReactDomClient_production() {
         listenToNonDelegatedEvent("invalid", instance);
         break;
       case "textarea":
-        listenToNonDelegatedEvent("invalid", instance), initTextarea(instance, props.value, props.defaultValue, props.children), track(instance);
+        listenToNonDelegatedEvent("invalid", instance), initTextarea(instance, props2.value, props2.defaultValue, props2.children), track(instance);
     }
-    type = props.children;
-    "string" !== typeof type && "number" !== typeof type && "bigint" !== typeof type || instance.textContent === "" + type || true === props.suppressHydrationWarning || checkForUnmatchedText(instance.textContent, type) ? (null != props.popover && (listenToNonDelegatedEvent("beforetoggle", instance), listenToNonDelegatedEvent("toggle", instance)), null != props.onScroll && listenToNonDelegatedEvent("scroll", instance), null != props.onScrollEnd && listenToNonDelegatedEvent("scrollend", instance), null != props.onClick && (instance.onclick = noop$1), instance = true) : instance = false;
+    type = props2.children;
+    "string" !== typeof type && "number" !== typeof type && "bigint" !== typeof type || instance.textContent === "" + type || true === props2.suppressHydrationWarning || checkForUnmatchedText(instance.textContent, type) ? (null != props2.popover && (listenToNonDelegatedEvent("beforetoggle", instance), listenToNonDelegatedEvent("toggle", instance)), null != props2.onScroll && listenToNonDelegatedEvent("scroll", instance), null != props2.onScrollEnd && listenToNonDelegatedEvent("scrollend", instance), null != props2.onClick && (instance.onclick = noop$1), instance = true) : instance = false;
     instance || throwOnHydrationMismatch(fiber);
   }
   function popToNextHostParent(fiber) {
@@ -3376,7 +3376,7 @@ function requireReactDomClient_production() {
       if (null !== entangledActionThenable) throw entangledActionThenable;
     }
   }
-  function processUpdateQueue(workInProgress$jscomp$0, props, instance$jscomp$0, renderLanes2) {
+  function processUpdateQueue(workInProgress$jscomp$0, props2, instance$jscomp$0, renderLanes2) {
     didReadFromEntangledAsyncAction = false;
     var queue = workInProgress$jscomp$0.updateQueue;
     hasForceUpdate = false;
@@ -3408,7 +3408,7 @@ function requireReactDomClient_production() {
           });
           a: {
             var workInProgress2 = workInProgress$jscomp$0, update = pendingQueue;
-            updateLane = props;
+            updateLane = props2;
             var instance = instance$jscomp$0;
             switch (update.tag) {
               case 1:
@@ -3495,7 +3495,7 @@ function requireReactDomClient_production() {
       if (!objectIs(nextDeps[i], prevDeps[i])) return false;
     return true;
   }
-  function renderWithHooks(current, workInProgress2, Component, props, secondArg, nextRenderLanes) {
+  function renderWithHooks(current, workInProgress2, Component, props2, secondArg, nextRenderLanes) {
     renderLanes = nextRenderLanes;
     currentlyRenderingFiber = workInProgress2;
     workInProgress2.memoizedState = null;
@@ -3503,12 +3503,12 @@ function requireReactDomClient_production() {
     workInProgress2.lanes = 0;
     ReactSharedInternals.H = null === current || null === current.memoizedState ? HooksDispatcherOnMount : HooksDispatcherOnUpdate;
     shouldDoubleInvokeUserFnsInHooksDEV = false;
-    nextRenderLanes = Component(props, secondArg);
+    nextRenderLanes = Component(props2, secondArg);
     shouldDoubleInvokeUserFnsInHooksDEV = false;
     didScheduleRenderPhaseUpdateDuringThisPass && (nextRenderLanes = renderWithHooksAgain(
       workInProgress2,
       Component,
-      props,
+      props2,
       secondArg
     ));
     finishRenderingHooks(current);
@@ -3525,7 +3525,7 @@ function requireReactDomClient_production() {
     if (didRenderTooFewHooks) throw Error(formatProdErrorMessage(300));
     null === current || didReceiveUpdate || (current = current.dependencies, null !== current && checkIfContextChanged(current) && (didReceiveUpdate = true));
   }
-  function renderWithHooksAgain(workInProgress2, Component, props, secondArg) {
+  function renderWithHooksAgain(workInProgress2, Component, props2, secondArg) {
     currentlyRenderingFiber = workInProgress2;
     var numberOfReRenders = 0;
     do {
@@ -3543,7 +3543,7 @@ function requireReactDomClient_production() {
         null != children.memoCache && (children.memoCache.index = 0);
       }
       ReactSharedInternals.H = HooksDispatcherOnRerender;
-      children = Component(props, secondArg);
+      children = Component(props2, secondArg);
     } while (didScheduleRenderPhaseUpdateDuringThisPass);
     return children;
   }
@@ -6937,17 +6937,17 @@ function requireReactDomClient_production() {
       else ref.current = null;
   }
   function commitHostMount(finishedWork) {
-    var type = finishedWork.type, props = finishedWork.memoizedProps, instance = finishedWork.stateNode;
+    var type = finishedWork.type, props2 = finishedWork.memoizedProps, instance = finishedWork.stateNode;
     try {
       a: switch (type) {
         case "button":
         case "input":
         case "select":
         case "textarea":
-          props.autoFocus && instance.focus();
+          props2.autoFocus && instance.focus();
           break a;
         case "img":
-          props.src ? instance.src = props.src : props.srcSet && (instance.srcset = props.srcSet);
+          props2.src ? instance.src = props2.src : props2.srcSet && (instance.srcset = props2.srcSet);
       }
     } catch (error) {
       captureCommitPhaseError(finishedWork, finishedWork.return, error);
@@ -6998,13 +6998,13 @@ function requireReactDomClient_production() {
         insertOrAppendPlacementNode(node, before, parent), node = node.sibling;
   }
   function commitHostSingletonAcquisition(finishedWork) {
-    var singleton = finishedWork.stateNode, props = finishedWork.memoizedProps;
+    var singleton = finishedWork.stateNode, props2 = finishedWork.memoizedProps;
     try {
       for (var type = finishedWork.type, attributes = singleton.attributes; attributes.length; )
         singleton.removeAttributeNode(attributes[0]);
-      setInitialProperties(singleton, type, props);
+      setInitialProperties(singleton, type, props2);
       singleton[internalInstanceKey] = finishedWork;
-      singleton[internalPropsKey] = props;
+      singleton[internalPropsKey] = props2;
     } catch (error) {
       captureCommitPhaseError(finishedWork, finishedWork.return, error);
     }
@@ -9911,7 +9911,7 @@ function requireReactDomClient_production() {
   }
   function noop$1() {
   }
-  function setProp(domElement, tag, key, value, props, prevValue) {
+  function setProp(domElement, tag, key, value, props2, prevValue) {
     switch (key) {
       case "children":
         "string" === typeof value ? "body" === tag || "textarea" === tag && "" === value || setTextContent(domElement, value) : ("number" === typeof value || "bigint" === typeof value) && "body" !== tag && setTextContent(domElement, "" + value);
@@ -9959,28 +9959,28 @@ function requireReactDomClient_production() {
           );
           break;
         } else
-          "function" === typeof prevValue && ("formAction" === key ? ("input" !== tag && setProp(domElement, tag, "name", props.name, props, null), setProp(
+          "function" === typeof prevValue && ("formAction" === key ? ("input" !== tag && setProp(domElement, tag, "name", props2.name, props2, null), setProp(
             domElement,
             tag,
             "formEncType",
-            props.formEncType,
-            props,
+            props2.formEncType,
+            props2,
             null
           ), setProp(
             domElement,
             tag,
             "formMethod",
-            props.formMethod,
-            props,
+            props2.formMethod,
+            props2,
             null
           ), setProp(
             domElement,
             tag,
             "formTarget",
-            props.formTarget,
-            props,
+            props2.formTarget,
+            props2,
             null
-          )) : (setProp(domElement, tag, "encType", props.encType, props, null), setProp(domElement, tag, "method", props.method, props, null), setProp(domElement, tag, "target", props.target, props, null)));
+          )) : (setProp(domElement, tag, "encType", props2.encType, props2, null), setProp(domElement, tag, "method", props2.method, props2, null), setProp(domElement, tag, "target", props2.target, props2, null)));
         if (null == value || "symbol" === typeof value || "boolean" === typeof value) {
           domElement.removeAttribute(key);
           break;
@@ -10003,7 +10003,7 @@ function requireReactDomClient_production() {
             throw Error(formatProdErrorMessage(61));
           key = value.__html;
           if (null != key) {
-            if (null != props.children) throw Error(formatProdErrorMessage(60));
+            if (null != props2.children) throw Error(formatProdErrorMessage(60));
             domElement.innerHTML = key;
           }
         }
@@ -10172,7 +10172,7 @@ function requireReactDomClient_production() {
           key = aliases.get(key) || key, setValueForAttribute(domElement, key, value);
     }
   }
-  function setPropOnCustomElement(domElement, tag, key, value, props, prevValue) {
+  function setPropOnCustomElement(domElement, tag, key, value, props2, prevValue) {
     switch (key) {
       case "style":
         setValueForStyles(domElement, value, prevValue);
@@ -10183,7 +10183,7 @@ function requireReactDomClient_production() {
             throw Error(formatProdErrorMessage(61));
           key = value.__html;
           if (null != key) {
-            if (null != props.children) throw Error(formatProdErrorMessage(60));
+            if (null != props2.children) throw Error(formatProdErrorMessage(60));
             domElement.innerHTML = key;
           }
         }
@@ -10211,16 +10211,16 @@ function requireReactDomClient_production() {
       default:
         if (!registrationNameDependencies.hasOwnProperty(key))
           a: {
-            if ("o" === key[0] && "n" === key[1] && (props = key.endsWith("Capture"), tag = key.slice(2, props ? key.length - 7 : void 0), prevValue = domElement[internalPropsKey] || null, prevValue = null != prevValue ? prevValue[key] : null, "function" === typeof prevValue && domElement.removeEventListener(tag, prevValue, props), "function" === typeof value)) {
+            if ("o" === key[0] && "n" === key[1] && (props2 = key.endsWith("Capture"), tag = key.slice(2, props2 ? key.length - 7 : void 0), prevValue = domElement[internalPropsKey] || null, prevValue = null != prevValue ? prevValue[key] : null, "function" === typeof prevValue && domElement.removeEventListener(tag, prevValue, props2), "function" === typeof value)) {
               "function" !== typeof prevValue && null !== prevValue && (key in domElement ? domElement[key] = null : domElement.hasAttribute(key) && domElement.removeAttribute(key));
-              domElement.addEventListener(tag, value, props);
+              domElement.addEventListener(tag, value, props2);
               break a;
             }
             key in domElement ? domElement[key] = value : true === value ? domElement.setAttribute(key, "") : setValueForAttribute(domElement, key, value);
           }
     }
   }
-  function setInitialProperties(domElement, tag, props) {
+  function setInitialProperties(domElement, tag, props2) {
     switch (tag) {
       case "div":
       case "span":
@@ -10235,9 +10235,9 @@ function requireReactDomClient_production() {
         listenToNonDelegatedEvent("error", domElement);
         listenToNonDelegatedEvent("load", domElement);
         var hasSrc = false, hasSrcSet = false, propKey;
-        for (propKey in props)
-          if (props.hasOwnProperty(propKey)) {
-            var propValue = props[propKey];
+        for (propKey in props2)
+          if (props2.hasOwnProperty(propKey)) {
+            var propValue = props2[propKey];
             if (null != propValue)
               switch (propKey) {
                 case "src":
@@ -10250,18 +10250,18 @@ function requireReactDomClient_production() {
                 case "dangerouslySetInnerHTML":
                   throw Error(formatProdErrorMessage(137, tag));
                 default:
-                  setProp(domElement, tag, propKey, propValue, props, null);
+                  setProp(domElement, tag, propKey, propValue, props2, null);
               }
           }
-        hasSrcSet && setProp(domElement, tag, "srcSet", props.srcSet, props, null);
-        hasSrc && setProp(domElement, tag, "src", props.src, props, null);
+        hasSrcSet && setProp(domElement, tag, "srcSet", props2.srcSet, props2, null);
+        hasSrc && setProp(domElement, tag, "src", props2.src, props2, null);
         return;
       case "input":
         listenToNonDelegatedEvent("invalid", domElement);
         var defaultValue = propKey = propValue = hasSrcSet = null, checked = null, defaultChecked = null;
-        for (hasSrc in props)
-          if (props.hasOwnProperty(hasSrc)) {
-            var propValue$188 = props[hasSrc];
+        for (hasSrc in props2)
+          if (props2.hasOwnProperty(hasSrc)) {
+            var propValue$188 = props2[hasSrc];
             if (null != propValue$188)
               switch (hasSrc) {
                 case "name":
@@ -10288,7 +10288,7 @@ function requireReactDomClient_production() {
                     throw Error(formatProdErrorMessage(137, tag));
                   break;
                 default:
-                  setProp(domElement, tag, hasSrc, propValue$188, props, null);
+                  setProp(domElement, tag, hasSrc, propValue$188, props2, null);
               }
           }
         initInput(
@@ -10306,8 +10306,8 @@ function requireReactDomClient_production() {
       case "select":
         listenToNonDelegatedEvent("invalid", domElement);
         hasSrc = propValue = propKey = null;
-        for (hasSrcSet in props)
-          if (props.hasOwnProperty(hasSrcSet) && (defaultValue = props[hasSrcSet], null != defaultValue))
+        for (hasSrcSet in props2)
+          if (props2.hasOwnProperty(hasSrcSet) && (defaultValue = props2[hasSrcSet], null != defaultValue))
             switch (hasSrcSet) {
               case "value":
                 propKey = defaultValue;
@@ -10318,18 +10318,18 @@ function requireReactDomClient_production() {
               case "multiple":
                 hasSrc = defaultValue;
               default:
-                setProp(domElement, tag, hasSrcSet, defaultValue, props, null);
+                setProp(domElement, tag, hasSrcSet, defaultValue, props2, null);
             }
         tag = propKey;
-        props = propValue;
+        props2 = propValue;
         domElement.multiple = !!hasSrc;
-        null != tag ? updateOptions(domElement, !!hasSrc, tag, false) : null != props && updateOptions(domElement, !!hasSrc, props, true);
+        null != tag ? updateOptions(domElement, !!hasSrc, tag, false) : null != props2 && updateOptions(domElement, !!hasSrc, props2, true);
         return;
       case "textarea":
         listenToNonDelegatedEvent("invalid", domElement);
         propKey = hasSrcSet = hasSrc = null;
-        for (propValue in props)
-          if (props.hasOwnProperty(propValue) && (defaultValue = props[propValue], null != defaultValue))
+        for (propValue in props2)
+          if (props2.hasOwnProperty(propValue) && (defaultValue = props2[propValue], null != defaultValue))
             switch (propValue) {
               case "value":
                 hasSrc = defaultValue;
@@ -10344,20 +10344,20 @@ function requireReactDomClient_production() {
                 if (null != defaultValue) throw Error(formatProdErrorMessage(91));
                 break;
               default:
-                setProp(domElement, tag, propValue, defaultValue, props, null);
+                setProp(domElement, tag, propValue, defaultValue, props2, null);
             }
         initTextarea(domElement, hasSrc, hasSrcSet, propKey);
         track(domElement);
         return;
       case "option":
-        for (checked in props)
-          if (props.hasOwnProperty(checked) && (hasSrc = props[checked], null != hasSrc))
+        for (checked in props2)
+          if (props2.hasOwnProperty(checked) && (hasSrc = props2[checked], null != hasSrc))
             switch (checked) {
               case "selected":
                 domElement.selected = hasSrc && "function" !== typeof hasSrc && "symbol" !== typeof hasSrc;
                 break;
               default:
-                setProp(domElement, tag, checked, hasSrc, props, null);
+                setProp(domElement, tag, checked, hasSrc, props2, null);
             }
         return;
       case "dialog":
@@ -10397,32 +10397,32 @@ function requireReactDomClient_production() {
       case "track":
       case "wbr":
       case "menuitem":
-        for (defaultChecked in props)
-          if (props.hasOwnProperty(defaultChecked) && (hasSrc = props[defaultChecked], null != hasSrc))
+        for (defaultChecked in props2)
+          if (props2.hasOwnProperty(defaultChecked) && (hasSrc = props2[defaultChecked], null != hasSrc))
             switch (defaultChecked) {
               case "children":
               case "dangerouslySetInnerHTML":
                 throw Error(formatProdErrorMessage(137, tag));
               default:
-                setProp(domElement, tag, defaultChecked, hasSrc, props, null);
+                setProp(domElement, tag, defaultChecked, hasSrc, props2, null);
             }
         return;
       default:
         if (isCustomElement(tag)) {
-          for (propValue$188 in props)
-            props.hasOwnProperty(propValue$188) && (hasSrc = props[propValue$188], void 0 !== hasSrc && setPropOnCustomElement(
+          for (propValue$188 in props2)
+            props2.hasOwnProperty(propValue$188) && (hasSrc = props2[propValue$188], void 0 !== hasSrc && setPropOnCustomElement(
               domElement,
               tag,
               propValue$188,
               hasSrc,
-              props,
+              props2,
               void 0
             ));
           return;
         }
     }
-    for (defaultValue in props)
-      props.hasOwnProperty(defaultValue) && (hasSrc = props[defaultValue], null != hasSrc && setProp(domElement, tag, defaultValue, hasSrc, props, null));
+    for (defaultValue in props2)
+      props2.hasOwnProperty(defaultValue) && (hasSrc = props2[defaultValue], null != hasSrc && setProp(domElement, tag, defaultValue, hasSrc, props2, null));
   }
   function updateProperties(domElement, tag, lastProps, nextProps) {
     switch (tag) {
@@ -10701,8 +10701,8 @@ function requireReactDomClient_production() {
       }
     return 1 === parentNamespace && "foreignObject" === type ? 0 : parentNamespace;
   }
-  function shouldSetTextContent(type, props) {
-    return "textarea" === type || "noscript" === type || "string" === typeof props.children || "number" === typeof props.children || "bigint" === typeof props.children || "object" === typeof props.dangerouslySetInnerHTML && null !== props.dangerouslySetInnerHTML && null != props.dangerouslySetInnerHTML.__html;
+  function shouldSetTextContent(type, props2) {
+    return "textarea" === type || "noscript" === type || "string" === typeof props2.children || "number" === typeof props2.children || "bigint" === typeof props2.children || "object" === typeof props2.dangerouslySetInnerHTML && null !== props2.dangerouslySetInnerHTML && null != props2.dangerouslySetInnerHTML.__html;
   }
   var currentPopstateTransitionEvent = null;
   function shouldAttemptEagerTransition() {
@@ -10780,9 +10780,9 @@ function requireReactDomClient_production() {
       container.removeChild(node);
     }
   }
-  function canHydrateInstance(instance, type, props, inRootOrSingleton) {
+  function canHydrateInstance(instance, type, props2, inRootOrSingleton) {
     for (; 1 === instance.nodeType; ) {
-      var anyProps = props;
+      var anyProps = props2;
       if (instance.nodeName.toLowerCase() !== type.toLowerCase()) {
         if (!inRootOrSingleton && ("INPUT" !== instance.nodeName || "hidden" !== instance.type))
           break;
@@ -10874,19 +10874,19 @@ function requireReactDomClient_production() {
     }
     return null;
   }
-  function resolveSingletonInstance(type, props, rootContainerInstance) {
-    props = getOwnerDocumentFromRootContainer(rootContainerInstance);
+  function resolveSingletonInstance(type, props2, rootContainerInstance) {
+    props2 = getOwnerDocumentFromRootContainer(rootContainerInstance);
     switch (type) {
       case "html":
-        type = props.documentElement;
+        type = props2.documentElement;
         if (!type) throw Error(formatProdErrorMessage(452));
         return type;
       case "head":
-        type = props.head;
+        type = props2.head;
         if (!type) throw Error(formatProdErrorMessage(453));
         return type;
       case "body":
-        type = props.body;
+        type = props2.body;
         if (!type) throw Error(formatProdErrorMessage(454));
         return type;
       default:
@@ -11160,19 +11160,19 @@ function requireReactDomClient_production() {
   function getScriptSelectorFromKey(key) {
     return "script[async]" + key;
   }
-  function acquireResource(hoistableRoot, resource, props) {
+  function acquireResource(hoistableRoot, resource, props2) {
     resource.count++;
     if (null === resource.instance)
       switch (resource.type) {
         case "style":
           var instance = hoistableRoot.querySelector(
-            'style[data-href~="' + escapeSelectorAttributeValueInsideDoubleQuotes(props.href) + '"]'
+            'style[data-href~="' + escapeSelectorAttributeValueInsideDoubleQuotes(props2.href) + '"]'
           );
           if (instance)
             return resource.instance = instance, markNodeAsHoistable(instance), instance;
-          var styleProps = assign({}, props, {
-            "data-href": props.href,
-            "data-precedence": props.precedence,
+          var styleProps = assign({}, props2, {
+            "data-href": props2.href,
+            "data-precedence": props2.precedence,
             href: null,
             precedence: null
           });
@@ -11181,16 +11181,16 @@ function requireReactDomClient_production() {
           );
           markNodeAsHoistable(instance);
           setInitialProperties(instance, "style", styleProps);
-          insertStylesheet(instance, props.precedence, hoistableRoot);
+          insertStylesheet(instance, props2.precedence, hoistableRoot);
           return resource.instance = instance;
         case "stylesheet":
-          styleProps = getStyleKey(props.href);
+          styleProps = getStyleKey(props2.href);
           var instance$250 = hoistableRoot.querySelector(
             getStylesheetSelectorFromKey(styleProps)
           );
           if (instance$250)
             return resource.state.loading |= 4, resource.instance = instance$250, markNodeAsHoistable(instance$250), instance$250;
-          instance = stylesheetPropsFromRawProps(props);
+          instance = stylesheetPropsFromRawProps(props2);
           (styleProps = preloadPropsMap.get(styleProps)) && adoptPreloadPropsForStylesheet(instance, styleProps);
           instance$250 = (hoistableRoot.ownerDocument || hoistableRoot).createElement("link");
           markNodeAsHoistable(instance$250);
@@ -11201,17 +11201,17 @@ function requireReactDomClient_production() {
           });
           setInitialProperties(instance$250, "link", instance);
           resource.state.loading |= 4;
-          insertStylesheet(instance$250, props.precedence, hoistableRoot);
+          insertStylesheet(instance$250, props2.precedence, hoistableRoot);
           return resource.instance = instance$250;
         case "script":
-          instance$250 = getScriptKey(props.src);
+          instance$250 = getScriptKey(props2.src);
           if (styleProps = hoistableRoot.querySelector(
             getScriptSelectorFromKey(instance$250)
           ))
             return resource.instance = styleProps, markNodeAsHoistable(styleProps), styleProps;
-          instance = props;
+          instance = props2;
           if (styleProps = preloadPropsMap.get(instance$250))
-            instance = assign({}, props), adoptPreloadPropsForScript(instance, styleProps);
+            instance = assign({}, props2), adoptPreloadPropsForScript(instance, styleProps);
           hoistableRoot = hoistableRoot.ownerDocument || hoistableRoot;
           styleProps = hoistableRoot.createElement("script");
           markNodeAsHoistable(styleProps);
@@ -11224,7 +11224,7 @@ function requireReactDomClient_production() {
           throw Error(formatProdErrorMessage(443, resource.type));
       }
     else
-      "stylesheet" === resource.type && 0 === (resource.state.loading & 4) && (instance = resource.instance, resource.state.loading |= 4, insertStylesheet(instance, props.precedence, hoistableRoot));
+      "stylesheet" === resource.type && 0 === (resource.state.loading & 4) && (instance = resource.instance, resource.state.loading |= 4, insertStylesheet(instance, props2.precedence, hoistableRoot));
     return resource.instance;
   }
   function insertStylesheet(instance, precedence, root2) {
@@ -11276,27 +11276,27 @@ function requireReactDomClient_production() {
       "title" === type ? hoistableRoot.querySelector("head > title") : null
     );
   }
-  function isHostHoistableType(type, props, hostContext) {
-    if (1 === hostContext || null != props.itemProp) return false;
+  function isHostHoistableType(type, props2, hostContext) {
+    if (1 === hostContext || null != props2.itemProp) return false;
     switch (type) {
       case "meta":
       case "title":
         return true;
       case "style":
-        if ("string" !== typeof props.precedence || "string" !== typeof props.href || "" === props.href)
+        if ("string" !== typeof props2.precedence || "string" !== typeof props2.href || "" === props2.href)
           break;
         return true;
       case "link":
-        if ("string" !== typeof props.rel || "string" !== typeof props.href || "" === props.href || props.onLoad || props.onError)
+        if ("string" !== typeof props2.rel || "string" !== typeof props2.href || "" === props2.href || props2.onLoad || props2.onError)
           break;
-        switch (props.rel) {
+        switch (props2.rel) {
           case "stylesheet":
-            return type = props.disabled, "string" === typeof props.precedence && null == type;
+            return type = props2.disabled, "string" === typeof props2.precedence && null == type;
           default:
             return true;
         }
       case "script":
-        if (props.async && "function" !== typeof props.async && "symbol" !== typeof props.async && !props.onLoad && !props.onError && props.src && "string" === typeof props.src)
+        if (props2.async && "function" !== typeof props2.async && "symbol" !== typeof props2.async && !props2.onLoad && !props2.onError && props2.src && "string" === typeof props2.src)
           return true;
     }
     return false;
@@ -11307,12 +11307,12 @@ function requireReactDomClient_production() {
   var suspendedState = null;
   function noop() {
   }
-  function suspendResource(hoistableRoot, resource, props) {
+  function suspendResource(hoistableRoot, resource, props2) {
     if (null === suspendedState) throw Error(formatProdErrorMessage(475));
     var state = suspendedState;
-    if ("stylesheet" === resource.type && ("string" !== typeof props.media || false !== matchMedia(props.media).matches) && 0 === (resource.state.loading & 4)) {
+    if ("stylesheet" === resource.type && ("string" !== typeof props2.media || false !== matchMedia(props2.media).matches) && 0 === (resource.state.loading & 4)) {
       if (null === resource.instance) {
-        var key = getStyleKey(props.href), instance = hoistableRoot.querySelector(
+        var key = getStyleKey(props2.href), instance = hoistableRoot.querySelector(
           getStylesheetSelectorFromKey(key)
         );
         if (instance) {
@@ -11324,8 +11324,8 @@ function requireReactDomClient_production() {
           return;
         }
         instance = hoistableRoot.ownerDocument || hoistableRoot;
-        props = stylesheetPropsFromRawProps(props);
-        (key = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(props, key);
+        props2 = stylesheetPropsFromRawProps(props2);
+        (key = preloadPropsMap.get(key)) && adoptPreloadPropsForStylesheet(props2, key);
         instance = instance.createElement("link");
         markNodeAsHoistable(instance);
         var linkInstance = instance;
@@ -11333,7 +11333,7 @@ function requireReactDomClient_production() {
           linkInstance.onload = resolve;
           linkInstance.onerror = reject;
         });
-        setInitialProperties(instance, "link", props);
+        setInitialProperties(instance, "link", props2);
         resource.instance = instance;
       }
       null === state.stylesheets && (state.stylesheets = /* @__PURE__ */ new Map());
@@ -12075,28 +12075,47 @@ function requireClient() {
   return client.exports;
 }
 var clientExports = requireClient();
-const reactLogo = "/assets/react-CHdo91hT.svg";
-const viteLogo = "/vite.svg";
+function CalculatorButton(props2) {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("button", { className: "calculatorButton", onClick: () => props2.setCalculationString(props2.clear ? "" : props2.calculationString + props2.character), children: props2.character });
+}
+function Screen(props) {
+  function tryEvaluation() {
+    try {
+      return eval(props.calculationString);
+    } catch (e) {
+      console.log(e);
+      return "invalid math";
+    }
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "screen", children: [
+    props.calculationString,
+    " = ",
+    tryEvaluation()
+  ] });
+}
 function App() {
-  const [count, setCount] = reactExports.useState(0);
+  const [calculationString, setCalculationString] = reactExports.useState("");
+  const buttonCharacters = [
+    "0",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "+",
+    "-",
+    "*",
+    "/",
+    "C"
+  ];
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "https://vite.dev", target: "_blank", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: viteLogo, className: "logo", alt: "Vite logo" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "https://react.dev", target: "_blank", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { src: reactLogo, className: "logo react", alt: "React logo" }) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { children: "Vite + React" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "card", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("button", { onClick: () => setCount((count2) => count2 + 1), children: [
-        "count is ",
-        count
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { children: [
-        "Edit ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("code", { children: "src/App.tsx" }),
-        " and save to test HMR"
-      ] })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "read-the-docs", children: "Click on the Vite and React logos to learn more" })
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { children: "React Calculator Demo" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Screen, { calculationString }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "buttongrid", children: buttonCharacters.map((v) => /* @__PURE__ */ jsxRuntimeExports.jsx(CalculatorButton, { character: v, clear: v == "C", calculationString, setCalculationString })) })
   ] });
 }
 clientExports.createRoot(document.getElementById("root")).render(

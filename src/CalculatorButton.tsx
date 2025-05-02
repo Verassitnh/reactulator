@@ -1,5 +1,3 @@
-import { useState } from 'react'
-
 interface CalculatorButtonProps {
     character: string,
     calculationString: string
